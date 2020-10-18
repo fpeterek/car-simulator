@@ -24,8 +24,6 @@ class Server:
 
     @staticmethod
     def to_lonlat(x: float, y: float) -> Tuple[float, float]:
-        x /= 100
-        y /= 100
         new_lat = Server.start_lat + y / 6_378_000 * 180 / math.pi
         new_lon = Server.start_lon + (x / 6_378_000 * 180 / math.pi) / math.cos(math.radians(Server.start_lat))
         return new_lat, new_lon
@@ -33,6 +31,7 @@ class Server:
     class Handler(socketserver.BaseRequestHandler):
 
         def drive(self, v, s):
+            v /= 10
             if debug:
                 print(f'Received (v, s) = ({v}, {s})')
 
@@ -50,7 +49,7 @@ class Server:
 
         def info(self):
 
-            v = Server.car.velocity if Server.car is not None else 0
+            v = int((Server.car.velocity if Server.car is not None else 0) * 10)
             s = Server.car.steering if Server.car is not None else 0
             b = 0
             if debug:

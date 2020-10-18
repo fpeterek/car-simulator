@@ -1,4 +1,5 @@
 import math
+import os
 from typing import Tuple
 
 from direction import Direction
@@ -9,10 +10,13 @@ from vector import Vector
 class Car:
 
     default_weight = 1800  # kg
-    default_top_speed = 230  # km/h
-    default_brake_force = 15
-    default_acceleration = 30
+    default_top_speed = 30 / 3.6  # m/s
+    default_brake_force = 10 / 3.6
+    default_acceleration = 10 / 3.6
     default_deceleration = 0.05
+
+    start_lat = float(os.getenv('START_LAT'))
+    start_lon = float(os.getenv('START_LON'))
 
     def __init__(self, x, y):
 
