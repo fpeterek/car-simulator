@@ -50,7 +50,7 @@ class Server:
         def info(self):
 
             v = int((Server.car.velocity if Server.car is not None else 0) * 10)
-            s = Server.car.steering if Server.car is not None else 0
+            s = int(Server.car.steering if Server.car is not None else 0)
             b = 0
             if debug:
                 print(f'Driving data (v, s) = ({v}, {s})')
